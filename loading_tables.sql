@@ -150,7 +150,6 @@ SELECT * FROM gasto limit 10;
 -- Columns: ID	ID_PRODUCTO	Concepto	Tipo	 Precio 
 
 CREATE  or replace table producto(
-id int,
 id_producto int,
 producto varchar(50),
 tipo varchar(50),

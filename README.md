@@ -33,5 +33,5 @@ El data set cuenta con 10 tablas en formatos csv tanto como en xlsx. Las tablas 
 
 ## Arquitectura inicial
 
-![Arquitectura inicial]()
+![Arquitectura inicial](./src/QuickDBD-Free%20Diagram.png)
 
