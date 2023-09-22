@@ -35,3 +35,38 @@ El data set cuenta con 10 tablas en formatos csv tanto como en xlsx. Las tablas 
 
 ![Arquitectura inicial](./src/QuickDBD-Free%20Diagram.png)
 
+## Arquitectura final
+
+![Arquitectura final](./src/QuickDBD-Free%20Diagram%20(1).png)
+
+## ETL
+
+Las transformaciones realizadas en el ETL son las siguientes:
+
+- **Canal de venta**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+
+- **Clientes**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+
+- **Compra**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+
+- **Empleados**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+
+- **Gasto**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+
+- **Productos**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+
+- **Proveedores**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+
+- **Sucursales**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+
+- **Tipos de Gasto**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+
+- **Venta**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+
+- **Fact**: Se crea una tabla con la información de las ventas y se le agrega una columna con el id de la sucursal.
+
+- **Dim_Producto**: Se crea una tabla con la información de los productos y se le agrega una columna con el id del proveedor.
+
+- **Tabla Calendario**: Se crea una tabla con la información de las fechas.
+
+Estas transformaciones se realizan en el archivo `elt.sql`
