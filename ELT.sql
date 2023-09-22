@@ -15,4 +15,15 @@ SELECT * FROM TablaCalendario order by fecha desc limit 4;
 
 
 -- Tabla Canal de Venta
--- 
+-- Sin transformaciones por el momento
+
+-- Tabla Clientes
+-- Cambiar , por . en la columna 'x' y 'y'
+UPDATE cliente
+SET X = TO_DECIMAL(REPLACE(X, ',', '.'),12,10);
+
+UPDATE cliente
+SET Y = TO_DECIMAL(REPLACE(Y, ',', '.'),12,10);
+
+
+-- Tabla Compra 

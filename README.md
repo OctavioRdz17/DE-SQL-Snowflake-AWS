@@ -45,7 +45,7 @@ Las transformaciones realizadas en el ETL son las siguientes:
 
 - **Canal de venta**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
 
-- **Clientes**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+- **Clientes**: Se eliminan las columnas que no se van a utilizar, se cambia el nombre de las columnas para que sean más descriptivas ademas que se cambia el formato de las columnas X y Y que ahora son longitud y latitud para que estén en formato decimal (10,12) .
 
 - **Compra**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
 
