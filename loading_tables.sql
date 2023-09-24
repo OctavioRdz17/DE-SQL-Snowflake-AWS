@@ -4,13 +4,11 @@ CREATE OR REPLACE WAREHOUSE RETAIL_WH;
 
 USE DATABASE RETAIL_SNOWFLAKE_AWS;
 
--- Create the stage from AWS s3 bucket
+
+-- Linking AWS to Snowflake
 CREATE OR REPLACE STAGE retail_s3_stage
-URL = 's3://de-adventurework-snowflake-raw/data'
-CREDENTIALS = (
-  AWS_KEY_ID = ''
-  AWS_SECRET_KEY = ''
-);
+URL = 's3://de-snowflake-raw/'
+CREDENTIALS = (AWS_KEY_ID = '' AWS_SECRET_KEY = '');
 
 -- Check the connection
 LIST @retail_s3_stage;
@@ -34,7 +32,7 @@ Longitud varchar(250)
 
 CREATE OR REPLACE TABLE proveedor(
 IdProveedor int,
-Proveedor varchar(50),
+Proveedor varchar(50) NULL,
 Direccion varchar(250),
 Ciudad varchar(250),
 Provincia varchar(250),
@@ -46,6 +44,7 @@ CREATE OR REPLACE TABLE canal_venta(
 IdCanal int, 
 Canal varchar(50)
 );
+
 
 CREATE OR REPLACE TABLE cliente(
 IdCliente int,
@@ -133,19 +132,19 @@ SELECT * FROM sucursal;
 COPY INTO proveedor
 FROM @retail_s3_stage/Proveedores.csv
 FILE_FORMAT = (
-    TYPE = CSV 
-    FIELD_DELIMITER = ';'
-    SKIP_HEADER = 1);
+TYPE = 'CSV' 
+FIELD_DELIMITER = ',' 
+SKIP_HEADER = 1);
 
 SELECT * FROM proveedor;
 
 COPY INTO canal_venta
-FROM @retail_s3_stage/Canalventa.csv
+FROM @s3_stage/CanalDeVenta.csv
 FILE_FORMAT = (
     TYPE = CSV 
-    FIELD_DELIMITER = ';'
+    FIELD_DELIMITER = ','
     SKIP_HEADER = 1
-    ERROR_ON_COLUMN_COUNT_MISMATCH = FALSE);
+    );
 
 SELECT * FROM canal_venta;
 
@@ -163,18 +162,17 @@ COPY INTO empleado
 FROM @retail_s3_stage/Empleados.csv
 FILE_FORMAT = (
     TYPE = CSV
-    FIELD_DELIMITER = ';'
+    FIELD_DELIMITER = ','
     SKIP_HEADER = 1);
 
 SELECT * FROM empleado;
 
 COPY INTO producto
-FROM @retail_s3_stage/Productos.csv
+FROM @retail_s3_stage/PRODUCTOS.csv
 FILE_FORMAT = (
     TYPE = CSV
-    FIELD_DELIMITER = ';'
-    SKIP_HEADER = 1
-    ERROR_ON_COLUMN_COUNT_MISMATCH = FALSE);
+    FIELD_DELIMITER = ','
+    SKIP_HEADER = 1);
 
 SELECT * FROM producto;
 
@@ -185,7 +183,7 @@ FILE_FORMAT = (
     FIELD_DELIMITER = ','
     SKIP_HEADER = 1);
 
-SELECT * FROM venta;
+SELECT * FROM venta LIMIT 10;
 
 COPY INTO compra
 FROM @retail_s3_stage/Compra.csv
