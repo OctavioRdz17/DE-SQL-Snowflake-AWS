@@ -27,3 +27,6 @@ SET Y = TO_DECIMAL(REPLACE(Y, ',', '.'),12,10);
 
 
 -- Tabla Compra 
+-- Sin transformaciones por el momento
+
+-- Empleado
