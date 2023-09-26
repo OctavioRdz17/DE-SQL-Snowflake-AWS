@@ -2,6 +2,7 @@
 
 ![Static Badge](https://img.shields.io/badge/Snowflake-gray?style=flat&logo=snowflake)
 ![Static Badge](https://img.shields.io/badge/AWS--S3-orange?style=flat&logo=redshift)
+![Static Badge](https://img.shields.io/badge/PowerBI-gray?style=flat&logo=powerbi)
 ![Static Badge](https://img.shields.io/badge/SQL-gray?style=flat&logo=SQL)
 ![Static Badge](https://img.shields.io/badge/Python-green?style=flat&logo=python)
 ![Static Badge](https://img.shields.io/badge/-Pandas-black?style=flat&logo=pandas)
@@ -37,36 +38,49 @@ El data set cuenta con 10 tablas en formatos csv tanto como en xlsx. Las tablas 
 
 ## Arquitectura final
 
-![Arquitectura final](./src/QuickDBD-Free%20Diagram%20(1).png)
+![Arquitectura final](./src/image.png)
 
 ## ETL
 
 Las transformaciones realizadas en el ETL son las siguientes:
 
-- **Canal de venta**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+- **Canal de venta**: Se eliminan las columnas `id` y `fecha_creacion` y se renombra la columna `nombre` a `canal_venta`.
+  
+- **Clientes**: Se formatea las columnas de latitud y longitud a float , se renombra la columna `id` a `id_cliente` y se crean las tablas de dimensiones localidad y provincia.
+  
+- **Cargo**: Se crea la tabla de dimensiones cargo.
+  
+- **Compra**: Se crean las conexiones con proveedores y productos y se renombra la columna `id` a `id_compra`.
+  
+- **Empleados**: Se crea un nuevo identificador `CodigoEmpleado` con un procedure para que sea autoincremental para evitar la duplicidad de IdEmpleado, se cambia el nombre de sucursal por un Id sucursal y se formatean las columnas de sucursal para hacer match al 100% con la tabla sucursal.
 
-- **Clientes**: Se eliminan las columnas que no se van a utilizar, se cambia el nombre de las columnas para que sean más descriptivas ademas que se cambia el formato de las columnas X y Y que ahora son longitud y latitud para que estén en formato decimal (10,12) .
+- **Gasto**: Se crea la tabla de dimensiones tipo_gasto y se renombra la columna `id` a `id_gasto`.
 
-- **Compra**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+- **Localidad**: Se crea la tabla de dimensiones localidad.
 
-- **Empleados**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+- **Productos**: Se crea normaliza la tabla creando la tabla tipo_producto y se renombra la columna `id` a `id_producto`.
 
-- **Gasto**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+- **Proveedor**: Se enlaza con las recien creadas tablas de dimensiones localidad y provincia y se renombra la columna `id` a `id_proveedor`.
 
-- **Productos**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+- **Provincia**: Se crea la tabla de dimensiones provincia.
 
-- **Proveedores**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+- **Sector**: Se crea la tabla de dimensiones sector.
 
-- **Sucursales**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+- **Sucursal**: Se formatea las columnas `X` y `Y` a float se les renombra a `latitud` y `longitud` respectivamente, se crea la tabla de dimensiones sucursal y se renombra la columna `id` a `id_sucursal`.
 
-- **Tipos de Gasto**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+- **Tabla Calendario** Mediante un procedimiento en SQL se crea una tabla calendario de dimensiones con las fechas de los años 2018, 2019 y 2020.
 
-- **Venta**: Se eliminan las columnas que no se van a utilizar y se cambia el nombre de las columnas para que sean más descriptivas.
+- **Tipo de Gasto**: Se renombra la columna `id` a `id_tipo_gasto`.
 
-- **Fact**: Se crea una tabla con la información de las ventas y se le agrega una columna con el id de la sucursal.
+- **Tipo de Producto**: Se crea la tabla de dimensiones tipo_producto.
 
-- **Dim_Producto**: Se crea una tabla con la información de los productos y se le agrega una columna con el id del proveedor.
+- **Venta**: Se renombra la columna `id` a `id_venta` y se crea la tabla de dimensiones canal_venta se normaliza la columna sucursal para hacer el enlace con la tabla sucursal.
 
-- **Tabla Calendario**: Se crea una tabla con la información de las fechas.
+Estas transformaciones se encuentran en el archivo `ETL.sql` en la carpeta principal.
 
-Estas transformaciones se realizan en el archivo `elt.sql`
+## Visualización
+
+Para la parte de la visualizacion de los datos y sus transformaciones hacemos el enlace con la herramienta Power BI, para ello, creamos un data warehouse en Snowflake y creamos las conexiones con Power BI.
+
+![PowerBi](.scr/../src/powerbi.png)
+
