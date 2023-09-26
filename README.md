@@ -78,6 +78,8 @@ Las transformaciones realizadas en el ETL son las siguientes:
 
 Estas transformaciones se encuentran en el archivo `ETL.sql` en la carpeta principal.
 
+![SnowflakeDB](src\sfdb.png)
+
 ## Visualización
 
 Para la parte de la visualizacion de los datos y sus transformaciones hacemos el enlace con la herramienta Power BI, para ello, creamos un data warehouse en Snowflake y creamos las conexiones con Power BI.
